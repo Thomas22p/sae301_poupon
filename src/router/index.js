@@ -1,22 +1,27 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import EntretienView from '../views/EntretienView.vue'
+import ContactView from '../views/ContactView.vue'
+import NouveauteView from '../views/NouveauteView.vue'
+import ConnexionView from '../views/ConnexionView.vue'
+import PanierView from '../views/PanierView.vue'
+
+
+
+// import PocketBase from 'pocketbase'
+// // Objet pocketBase
+// const pb = new PocketBase("http://127.0.0.1:8090");
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
-    }
+    { path: '/',    name: 'home',     component: HomeView },
+    { path: '/entretien',     name: 'entretien',   component: EntretienView  },
+    { path: '/contact',     name: 'contact',   component: ContactView  },
+    { path: '/nouveaute',     name: 'nouveaute',   component: NouveauteView  },
+    { path: '/connexion',     name: 'connexion',   component: ConnexionView  },
+    { path: '/panier',     name: 'panier',   component: PanierView  },
   ]
 })
 

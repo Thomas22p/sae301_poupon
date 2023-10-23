@@ -1,19 +1,84 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+  import { ref, onMounted } from 'vue';
+
+  import { useRouter } from 'vue-router';
+  const router = useRouter()
+
+  import { RouterLink, RouterView } from 'vue-router'
+
+  // import PocketBase from 'pocketbase'
+
+  // const pb = new PocketBase("http://127.0.0.1:8090");
+  
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <div class="container-fluid">
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+      <nav class="navbar navbar-expand-lg navbar-dark justify-content-between">
+        <RouterLink class="navbar-brand text-dark" to="/">TaVue</RouterLink>
+        <button class="navbar-toggler" 
+          type="button" data-toggle="collapse" 
+          data-target="#navbarNav" 
+          aria-controls="navbarNav" 
+          aria-expanded="false" 
+          aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="collapse navbar-collapse" id="navbarNav">
+    
+            <ul class="navbar-nav">              
+                <li class="nav-item">
+                  <RouterLink class="nav-link text-dark" to="/">Lunettes</RouterLink>
+                </li>
+                <li class="nav-item">
+                  <RouterLink class="nav-link text-dark" to="/nouveaute">Nouvautés</RouterLink>
+                </li>
+                <li class="nav-item">
+                  <RouterLink class="nav-link text-dark" to="/entretien">Entretien</RouterLink>
+                </li>
+                <li class="nav-item">
+                  <RouterLink class="nav-link text-dark" to="/contact">Contact</RouterLink>
+                </li>
+                <li class="nav-item">
+                  <RouterLink class="nav-link text-dark" to="/panier"><button class="btn ml-auto" type="button" @click="deconnect">
+                    <i class="ti ti-shopping-bag"></i>
+                  </button></RouterLink>
+                </li>
+                <li class="nav-item">
+                  <RouterLink class="nav-link text-dark" to="/connexion"><button class="btn ml-auto" type="button" @click="deconnect">
+                    <i class="ti ti-user text-dark"></i>
+                  </button></RouterLink>
+                </li>
+            </ul>
+
+            <!-- <div class="ml-auto">              
+              <span v-if="isConnected"> 
+                <img :src="avatar" class="img-fluid" style="max-width:60px;" />
+                <button class="btn btn-light mr-2">
+                  {{ currentUser.name }}
+                </button>              
+                <button class="btn btn-dark ml-auto" type="button" @click="deconnect">
+                    <i class="fa fa-sign-out"></i>
+                  </button>
+              </span>
+
+              <form v-else class="form-inline  input-group-sm ml-auto" >
+                  <input class="form-control mr-2" placeholder="Login" v-model="user">
+                  <input class="form-control mr-2" placeholder="Password" v-model="psw">
+                  <button class="btn btn-dark ml-auto" 
+                      type="button" @click.prevent="connect">
+                      <i class="fa fa-power-off"></i>
+                  </button>
+                </form>
+              </div> -->
+
+        </div>
+
+    </nav>
     </div>
   </header>
 
