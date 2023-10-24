@@ -5,6 +5,8 @@ import ContactView from '../views/ContactView.vue'
 import NouveauteView from '../views/NouveauteView.vue'
 import ConnexionView from '../views/ConnexionView.vue'
 import PanierView from '../views/PanierView.vue'
+import MentionLegView from '../views/MentionLegView.vue'
+import  CookieView from '../views/CookieView.vue'
 
 
 
@@ -22,6 +24,8 @@ const router = createRouter({
     { path: '/nouveaute',     name: 'nouveaute',   component: NouveauteView  },
     { path: '/connexion',     name: 'connexion',   component: ConnexionView  },
     { path: '/panier',     name: 'panier',   component: PanierView  },
+    { path: '/mentions-legales',     name: 'mentions-legales',   component: MentionLegView  },
+    { path: '/cookie',     name: 'cookies',   component: CookieView  },
   ]
 })
 
