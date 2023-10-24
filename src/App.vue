@@ -68,9 +68,9 @@
 
   <RouterView />
 
-  <footer>
+  <footer class="bg-blue">
     <nav>
-      <ul class="grid grid-cols-4 px-32 py-12 bg-blue">
+      <ul class="grid grid-cols-4 px-32 py-12">
         <div>
           <RouterLink to="/" class="text-white text-xl font-bold font-notable">TaVue</RouterLink>
         </div>
@@ -81,8 +81,8 @@
         </div>
         <div class="">
           <li class="text-white font-bold font-montserrat">Horaires</li>
-          <li class="text-white">09518517864</li>
-          <li class="text-white">contact@tavue.com</li>
+          <li class="text-white">de 9h à 20h</li>
+          <li class="text-white">de lundi à samedi</li>
         </div>
         <div class="">
           <div class="flex justify-end">

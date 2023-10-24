@@ -6,7 +6,10 @@ import NouveauteView from '../views/NouveauteView.vue'
 import ConnexionView from '../views/ConnexionView.vue'
 import PanierView from '../views/PanierView.vue'
 import MentionLegView from '../views/MentionLegView.vue'
-import  CookieView from '../views/CookieView.vue'
+import CookieView from '../views/CookieView.vue'
+import PersoView from '../views/PersoView.vue'
+import SafariView from '../views/SafariView.vue' 
+import EclairView from '../views/EclairView.vue'
 
 
 
@@ -26,6 +29,9 @@ const router = createRouter({
     { path: '/panier',     name: 'panier',   component: PanierView  },
     { path: '/mentions-legales',     name: 'mentions-legales',   component: MentionLegView  },
     { path: '/cookie',     name: 'cookies',   component: CookieView  },
+    { path: '/perso',     name: 'personnalisation',   component: PersoView  },
+    { path: '/safari',     name: 'safari-sauvage',   component: SafariView  },
+    { path: '/eclair',     name: 'eclair-du-soleil',   component: EclairView  },
   ]
 })
 
