@@ -3,7 +3,7 @@
     import { ref, onMounted } from 'vue';
     import { useRouter } from 'vue-router';
     import PocketBase from 'pocketbase'
-    const pb = new PocketBase("http://127.0.0.1:8090")
+    const pb = new PocketBase("http://193.168.146.180:80");
 
     const router = useRouter()
     
@@ -25,7 +25,7 @@
             isConnected.value = true
 
             avatar.value =
-            "http://127.0.0.1:8090/api/files/"  // Adresse serveur et repertoire des fichiers image
+            "http://193.168.146.180:80/api/files/"  // Adresse serveur et repertoire des fichiers image
             +currentUser.value.collectionId     // Id ou name de la collection concernée
             +"/"
             +currentUser.value.id               // Id de l'utilisateur connecté
@@ -149,7 +149,7 @@ var connected = false;
 var pocketbase_ip = "";
     if (import.meta.env.MODE === "production")
     pocketbase_ip = "https://sharedpoesy.thomaspoupon.fr:443";
-    else pocketbase_ip = "http://127.0.0.1:8090";
+    else pocketbase_ip = "http://193.168.146.180:80";
     const pb = new PocketBase(pocketbase_ip);
     var currentUser;
     export default {
