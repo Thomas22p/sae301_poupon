@@ -16,6 +16,6 @@ import MapOsm from '../components/MapOsm.vue';
         <li class="font-montserrat font-bold flex gap-5">E-mail : <p class="font-montserrat font-normal">contact@tavue.com</p></li>
       </ul>
       <h1 class="font-montserrat font-bold text-t40 mt-14 mb-5">Nos Locaux</h1>
-    <MapOsm />
     </div>
+    <MapOsm />
 </template>

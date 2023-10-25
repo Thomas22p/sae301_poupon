@@ -1,6 +1,9 @@
 <template>
     <div class="grid grid-cols-12 gap-5 mx-[120px] mt-32 mb-32">
-      <img class="col-start-1 col-span-6 gap-5 mt-12 transform scale-x-[-1]" src="../assets/lunette5.svg" alt="lunette2">
+      <div class="flex flex-col col-start-1 col-span-6">
+        <h1 class="font-montserrat font-bold text-t40 text-center -mt-10 mb-10">Safari sauvage</h1>
+        <img class="mt-12 transform scale-x-[-1]" src="../assets/lunette5.svg" alt="lunette2">
+      </div>
 
       <div class="flex flex-col col-start-7 col-span-5 gap-5  pb-5 border-b-2 border-black">
         <div class="flex gap-5 items-center">

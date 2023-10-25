@@ -13,9 +13,9 @@ import EclairView from '../views/EclairView.vue'
 
 
 
-// import PocketBase from 'pocketbase'
-// // Objet pocketBase
-// const pb = new PocketBase("http://127.0.0.1:8090");
+import PocketBase from 'pocketbase'
+// Objet pocketBase
+const pb = new PocketBase("http://127.0.0.1:8090");
 
 
 const router = createRouter({
@@ -34,5 +34,22 @@ const router = createRouter({
     { path: '/eclair',     name: 'eclair-du-soleil',   component: EclairView  },
   ]
 })
+
+
+router.beforeEach( (to, from, next) =>{
+  if (to.name == "home" || to.name == "connexion") {
+    // Si la page demandée est "home" ou "compte", on autorise l'accès
+    next();
+  } else {
+    // Sinon, on vérifie si l'utilisateur est connecté
+    if (pb.authStore.model != null) {
+      // Utilisateur connecté => OK
+      next();
+    } else {
+      // Utilisateur non connecté, redirection sur la page d'acceuil
+      router.push({ name: "connexion" });
+    }
+  }
+});
 
 export default router

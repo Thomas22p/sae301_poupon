@@ -6,10 +6,9 @@
 
   import { RouterLink, RouterView } from 'vue-router'
 
-  // import PocketBase from 'pocketbase'
+  import PocketBase from 'pocketbase'
 
-  // const pb = new PocketBase("http://127.0.0.1:8090");
-
+  const pb = new PocketBase("http://127.0.0.1:8090");
 </script>
 
 <template>
@@ -36,10 +35,10 @@
         </div>
         <div class="flex">
           <li>
-            <RouterLink to="/contact" class="text-black"><img src="./assets/panier.svg" alt="panier"></RouterLink>
+            <RouterLink to="/panier" class="text-black"><img src="./assets/panier.svg" alt="panier"></RouterLink>
           </li>
           <li>
-            <RouterLink to="/contact" class="text-black"><img src="./assets/user.svg" alt="connexion"></RouterLink>
+            <RouterLink to="/connexion" class="text-black"><img src="./assets/user.svg" alt="connexion"></RouterLink>
           </li>
         </div>
       </ul>
@@ -196,3 +195,16 @@ nav a:first-of-type {
   }
 }
 </style>
+
+<script>
+export default { 
+  name : 'TaVue', 
+  metaInfo: { 
+    title: 'Site de la Marque TaVue', 
+    meta: [{ 
+          name: 'description', 
+          content: 'Personnalisez vos lunettes en ligne' 
+        }] 
+  } 
+};
+</script>
