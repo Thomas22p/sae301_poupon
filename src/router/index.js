@@ -37,7 +37,7 @@ const router = createRouter({
 
 
 router.beforeEach( (to, from, next) =>{
-  if (to.name == "home" || to.name == "connexion") {
+  if (to.name == "home" || to.name == "contact" || to.name == "connexion") {
     // Si la page demandée est "home" ou "compte", on autorise l'accès
     next();
   } else {
