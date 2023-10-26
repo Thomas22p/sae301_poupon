@@ -9,7 +9,7 @@
       await pb.collection("users").authWithOAuth2({ provider: "github" });
       if (pb.authStore.isValid) {
         document.getElementById("status").innerHTML = "You are now logged in";
-        connected = true;
+        isConnected = true;
         currentUser=pb.authStore.model;
       }
     }

@@ -3,6 +3,7 @@
   import { useRouter } from 'vue-router';
   import PocketBase from 'pocketbase'
   const pb = new PocketBase("http://127.0.0.1:8090/");
+  const router = useRouter();
 
   let colors = ref([]);
   let CouleurMonture = ref('#6F6F6F');
@@ -73,6 +74,7 @@ const selectMateriauBranche = (type) => {
 
     const createLunettes = async()=>{
       await pb.collection('lunette').create(newLunettes.value)
+      router.push('/panier')
     }
 
 
@@ -236,7 +238,7 @@ const selectMateriauBranche = (type) => {
           </div>
 
         </div>
-        <RouterLink to="/panier"><button class="ml-auto my-10 font-montserrat font-semibold underline uppercase" @click="createLunettes()">Ajouter au panier</button></RouterLink>
+        <button class="ml-auto my-10 font-montserrat font-semibold underline uppercase" @click="createLunettes()">Ajouter au panier</button>
       </div>
     </div>
 </template>
