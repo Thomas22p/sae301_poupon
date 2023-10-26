@@ -10,19 +10,24 @@
 
   let listeLunettes = ref()
 
+  const refresh = async()=>{
+    listeLunettes.value = await pb.collection('lunette').getFullList()
+  }
+
   onMounted(() => {
-      getListeLunettes();
+      getListeLunettes(); 
+      refresh();
     });
 
 
   const getListeLunettes = async()=>{
-    listeLunettes.value = await pb.collection('Allunettes').getFullList( { filter: 'utilisateur = "' + pb.authStore.model.id + '"' })
+    listeLunettes.value = await pb.collection('Allunettes').getFullList( { filter: 'utilisateur = "' + pb.authStore.model.id + '"'}, { sort: '-temps' })
   }
 
   const deleteLunette = async(item)=>{
     let result = await pb.collection('lunette').delete(item.id_lunette)
     console.log("result delete", result)
-    refresh()
+    getListeLunettes()
   }
 
 </script>

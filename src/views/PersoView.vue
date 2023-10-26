@@ -2,12 +2,80 @@
   import { ref, onMounted } from 'vue';
   import { useRouter } from 'vue-router';
   import PocketBase from 'pocketbase'
-  const pb = new PocketBase("http://193.168.146.180:80");
+  const pb = new PocketBase("http://127.0.0.1:8090/");
 
   let colors = ref([]);
   let CouleurMonture = ref('#6F6F6F');
   let CouleurBranch = ref('#ABABAB');
   let CouleurGlass = ref('C0C0C0');
+  let MateriauGlass = ref();
+
+
+  const newLunettes = ref({
+        libelle: "Nouvelle config",
+        users: pb.authStore.model.id,
+        prix: 160,
+        forme_cadre: '504tj5v1ocupxbx',
+
+        couleur_verre: '',
+        couleur_cadre: '',
+        couleur_branche: '',
+
+        materiau_verre: '',
+        materiau_cadre: '',
+        materiau_branche: '',
+    });
+
+const selectMateriauCadre = (type) => {
+        if(type == "plastique") {
+          MateriauGlass.value = "p7z811jklvrnyen";
+            selectedMaterial_cadre.value = "plastique";
+            newLunettes.value.materiau_cadre = MateriauGlass.value;
+        } else if(type == "bois") {
+          MateriauGlass.value = "vyamb58vk6t72am";
+            selectedMaterial_cadre.value = "bois";
+            newLunettes.value.materiau_cadre = MateriauGlass.value;
+        } else if(type == "metal") {
+          MateriauGlass.value = "uqu9z3ctqdlqg1w";
+            selectedMaterial_cadre.value = "metal";
+            newLunettes.value.materiau_cadre = MateriauGlass.value;
+        }
+}
+
+const selectMateriauVerre = (type) => {
+        if(type == "verre") {
+          MateriauGlass.value = "7lio4sfh5n8i3bn";
+            selectedMaterial_verre.value = "verre";
+            newLunettes.value.materiau_verre = MateriauGlass.value;
+        } else if(type == "plastique") {
+          MateriauGlass.value = "p7z811jklvrnyen";
+            selectedMaterial_verre.value = "plastique";
+            newLunettes.value.materiau_verre = MateriauGlass.value;
+        }
+}
+
+const selectMateriauBranche = (type) => {
+        if(type == "plastique") {
+          MateriauGlass.value = "p7z811jklvrnyen";
+            selectedMaterial_branche.value = "plastique";
+            newLunettes.value.materiau_branche = MateriauGlass.value;
+        } else if(type == "bois") {
+          MateriauGlass.value = "vyamb58vk6t72am";
+            selectedMaterial_branche.value = "bois";
+            newLunettes.value.materiau_branche = MateriauGlass.value;
+        }
+        else if(type == "metal") {
+          MateriauGlass.value = "uqu9z3ctqdlqg1w";
+            selectedMaterial_branche.value = "metal";
+            newLunettes.value.materiau_branche = MateriauGlass.value;
+        }
+}
+
+    const createLunettes = async()=>{
+      await pb.collection('lunette').create(newLunettes.value)
+    }
+
+
 
   onMounted(() => {
     getColors()
@@ -27,15 +95,18 @@
   const CouleurChoisi = (type, item) => {
   if (type == "monture") {
     CouleurMonture.value = item.libelle_couleur;
+    newLunettes.value.couleur_cadre = item.id;
     console.log(CouleurMonture.value);
   } else if (type == "branch") {
     CouleurBranch.value = item.libelle_couleur;
+    newLunettes.value.couleur_branche = item.id;
     console.log(CouleurBranch.value);
   } else if (type == "glasses") {
     CouleurGlass.value = item.libelle_couleur;
+    newLunettes.value.couleur_verre = item.id;
     console.log(CouleurGlass.value);
   }
-};
+}
 
 </script>
 
@@ -91,12 +162,12 @@
           <div class="flex gap-5">
             <button
             v-bind:class="{ 'selected': selectedMaterial_verre === 'verre' }"
-            @click="selectedMaterial_verre = 'verre'" class="font-montserrat font-medium px-4 py-2 border-black border-solid border-2">
+            @click="selectMateriauVerre('verre')" class="font-montserrat font-medium px-4 py-2 border-black border-solid border-2">
             Verre trempé
             </button>
             <button
             v-bind:class="{ 'selected': selectedMaterial_verre === 'plastique' }"
-            @click="selectedMaterial_verre = 'plastique'" class="font-montserrat font-medium px-4 py-2 border-black border-solid border-2">
+            @click="selectMateriauVerre('plastique')" class="font-montserrat font-medium px-4 py-2 border-black border-solid border-2">
             Plastique
             </button>
           </div>
@@ -109,24 +180,24 @@
         </div>
 
         <div class=" flex flex-col gap-5">
-          <h2 class="font-montserrat text-t24 w-auto border-b-2 border-black pb-3">Cadres</h2>
+          <h2 class="font-montserrat text-t24 w-auto border-b-2 border-black pb-3">Cadre</h2>
 
           <p>Matériaux</p>
           <div class="flex gap-5">
             <button
             v-bind:class="{ 'selected': selectedMaterial_cadre === 'plastique' }"
-            @click="selectedMaterial_cadre = 'plastique'" class="font-montserrat font-medium px-4 py-2 border-black border-solid border-2">
-            Verre trempé
+            @click="selectMateriauCadre('plastique')" class="font-montserrat font-medium px-4 py-2 border-black border-solid border-2">
+            Plastique
             </button>
             <button
             v-bind:class="{ 'selected': selectedMaterial_cadre === 'bois' }"
-            @click="selectedMaterial_cadre = 'bois'" class="font-montserrat font-medium px-4 py-2 border-black border-solid border-2">
+            @click="selectMateriauCadre('bois')" class="font-montserrat font-medium px-4 py-2 border-black border-solid border-2">
             Bois
             </button>
             <button
             v-bind:class="{ 'selected': selectedMaterial_cadre === 'metal' }"
-            @click="selectedMaterial_cadre = 'metal'" class="font-montserrat font-medium px-4 py-2 border-black border-solid border-2">
-            Plastique
+            @click="selectMateriauCadre('metal')" class="font-montserrat font-medium px-4 py-2 border-black border-solid border-2">
+            Métal
             </button>
           </div>
 
@@ -144,18 +215,18 @@
           <div class="flex gap-5">
             <button
             v-bind:class="{ 'selected': selectedMaterial_branche === 'plastique' }"
-            @click="selectedMaterial_branche = 'plastique'" class="font-montserrat font-medium px-4 py-2 border-black border-solid border-2">
-            Verre trempé
+            @click="selectMateriauBranche('plastique')" class="font-montserrat font-medium px-4 py-2 border-black border-solid border-2">
+            Plastique
             </button>
             <button
             v-bind:class="{ 'selected': selectedMaterial_branche === 'bois' }"
-            @click="selectedMaterial_branche = 'bois'" class="font-montserrat font-medium px-4 py-2 border-black border-solid border-2">
+            @click="selectMateriauBranche('bois')" class="font-montserrat font-medium px-4 py-2 border-black border-solid border-2">
             Bois
             </button>
             <button
             v-bind:class="{ 'selected': selectedMaterial_branche === 'metal' }"
-            @click="selectedMaterial_branche = 'metal'" class="font-montserrat font-medium px-4 py-2 border-black border-solid border-2">
-            Plastique
+            @click="selectMateriauBranche('metal')" class="font-montserrat font-medium px-4 py-2 border-black border-solid border-2">
+            Métal
             </button>
           </div>
 
@@ -165,7 +236,7 @@
           </div>
 
         </div>
-        <p class="ml-auto my-10 font-montserrat font-semibold underline uppercase">Ajouter au panier</p>
+        <RouterLink to="/panier"><button class="ml-auto my-10 font-montserrat font-semibold underline uppercase" @click="createLunettes()">Ajouter au panier</button></RouterLink>
       </div>
     </div>
 </template>

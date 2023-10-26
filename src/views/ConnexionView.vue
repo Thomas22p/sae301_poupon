@@ -3,7 +3,16 @@
     import { ref, onMounted } from 'vue';
     import { useRouter } from 'vue-router';
     import PocketBase from 'pocketbase'
-    const pb = new PocketBase("http://193.168.146.180:80");
+    const pb = new PocketBase("http://127.0.0.1:8090/");
+
+    const loginGithub =  async()=>{
+      await pb.collection("users").authWithOAuth2({ provider: "github" });
+      if (pb.authStore.isValid) {
+        document.getElementById("status").innerHTML = "You are now logged in";
+        connected = true;
+        currentUser=pb.authStore.model;
+      }
+    }
 
     const router = useRouter()
     
@@ -55,48 +64,7 @@
       avatar.value = null
       router.push({name:"home"})
     }
-  
-  // Liste des matériaux
-  // let Materiaux = ref([])
-  
-  // // Liste des formes
-  // let Formes = ref([])
-  
-  // // Liste des couleurs
-  // let Couleurs = ref([])
-  
-  // // Matériaux, formes et couleurs sélectionnés
-  // let selectedMaterial = ref({ svg: '' })
-  // let selectedShape = ref({ svg: '' })
-  // let selectedColor = ref({ svg: '' })
-  
-  // Au montage du composant
-  onMounted(async () => {
-    try {
-      // Récupérer la liste des matériaux depuis PocketBase
-      Materiaux.value = await pb.collection("Materiaux").getFullList({ sort: 'libelle' })
-  
-      // Récupérer la liste des formes depuis PocketBase
-      Formes.value = await pb.collection("Forme").getFullList({ sort: 'libelle' })
-  
-      // Récupérer la liste des couleurs depuis PocketBase
-      Couleurs.value = await pb.collection("Couleurs").getFullList({ sort: 'libelle' })
-    } catch (error) {
-      console.error("Erreur lors de la récupération des données : ", error)
-    }
-  })
-  
-  const selectMaterial = (materiau) => {
-    selectedMaterial.value.svg = materiau.svg
-  }
-  
-  const selectShape = (forme) => {
-    selectedShape.value.svg = forme.svg
-  }
-  
-  const selectColor = (couleur) => {
-    selectedColor.value.svg = couleur.svg
-  }
+ 
 </script>
 
 
@@ -132,7 +100,7 @@
                   </button>
                   <p class="font-montserrat font-bold text-center my-5"> OU </p>
                   <button class="font-montserrat px-4 py-2 rounded-lg border-black border-solid border-2 mx-auto" 
-                      type="button" v-on:click="googlelogin()">Se connecter avec Google
+                      type="button" v-on:click="loginGithub()">Se connecter avec Github
                   </button>
                 </form>
       </div>
@@ -142,58 +110,3 @@
       <p class="text-center -mt-16 mb-12">✔️  Vous êtes connecté !</p>
     </div>        
 </template>
-
-
-<script>
-var connected = false;
-var pocketbase_ip = "";
-    if (import.meta.env.MODE === "production")
-    pocketbase_ip = "https://sharedpoesy.thomaspoupon.fr:443";
-    else pocketbase_ip = "http://193.168.146.180:80";
-    const pb = new PocketBase(pocketbase_ip);
-    var currentUser;
-    export default {
-        async login() {
-          await pb
-            .collection("users")
-            .authWithPassword(
-              document.getElementById("email").value,
-              document.getElementById("passwd").value
-            );
-
-          if (pb.authStore.isValid) {
-            document.getElementById("status").innerHTML = "You are now logged in";
-            connected = true;
-            currentUser = pb.authStore.model;
-            document.getElementById("signOut").style.visibility = "hidden";
-            document.getElementById("addPoem").style.visibility = "visible";
-          }
-        },
-        //this method allows the already registred user to log in the system.
-        async register() {
-          currentUser = await pb.collection("users").create({
-            email: document.getElementById("email").value,
-            password: document.getElementById("passwd").value,
-            passwordConfirm: document.getElementById("passwd").value,
-            name: "John Di",
-          });
-          if (currentUser) {
-            document.getElementById("status").innerHTML =
-              "Wainting for your email validation ...";
-            await pb
-              .collection("users")
-              .requestVerification(document.getElementById("email").value);
-          }
-        },
-        async googlelogin() {
-          await pb.collection("users").authWithOAuth2({ provider: "google" });
-          if (pb.authStore.isValid) {
-            document.getElementById("status").innerHTML = "You are now logged in";
-            connected = true;
-            currentUser = pb.authStore.model;
-            document.getElementById("signOut").style.visibility = "hidden";
-            document.getElementById("addPoem").style.visibility = "visible";
-          }
-        },
-    };
-</script>
