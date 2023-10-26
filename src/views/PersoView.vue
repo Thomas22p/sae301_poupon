@@ -2,7 +2,7 @@
   import { ref, onMounted } from 'vue';
   import { useRouter } from 'vue-router';
   import PocketBase from 'pocketbase'
-  const pb = new PocketBase("http://127.0.0.1:8090/");
+  const pb = new PocketBase("hhttps://tavue.thomaspoupon.fr:443");
   const router = useRouter();
 
   let colors = ref([]);

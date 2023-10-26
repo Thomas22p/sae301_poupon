@@ -15,7 +15,7 @@ import EclairView from '../views/EclairView.vue'
 
 import PocketBase from 'pocketbase'
 // Objet pocketBase
-const pb = new PocketBase("http://127.0.0.1:8090/");
+const pb = new PocketBase("https://tavue.thomaspoupon.fr:443");
 
 
 const router = createRouter({

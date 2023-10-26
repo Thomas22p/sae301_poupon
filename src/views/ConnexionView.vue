@@ -3,7 +3,7 @@
     import { ref, onMounted } from 'vue';
     import { useRouter } from 'vue-router';
     import PocketBase from 'pocketbase'
-    const pb = new PocketBase("http://127.0.0.1:8090/");
+    const pb = new PocketBase("https://tavue.thomaspoupon.fr:443");
 
     const loginGithub =  async()=>{
       await pb.collection("users").authWithOAuth2({ provider: "github" });
@@ -34,7 +34,7 @@
             isConnected.value = true
 
             avatar.value =
-            "http://193.168.146.180:80/api/files/"  // Adresse serveur et repertoire des fichiers image
+            "https://tavue.thomaspoupon.fr:443/api/files/"  // Adresse serveur et repertoire des fichiers image
             +currentUser.value.collectionId     // Id ou name de la collection concernée
             +"/"
             +currentUser.value.id               // Id de l'utilisateur connecté

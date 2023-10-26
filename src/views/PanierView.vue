@@ -1,23 +1,20 @@
 <script setup>
-
-  import { RouterLink, RouterView } from 'vue-router'
   import { ref, onMounted } from 'vue';
-  import { useRouter } from 'vue-router';
   import PocketBase from 'pocketbase'
-  const pb = new PocketBase("http://127.0.0.1:8090/");
-
-  const router = useRouter()
+  const pb = new PocketBase("https://tavue.thomaspoupon.fr:443");
 
   let listeLunettes = ref()
+
+
+  onMounted(() => {
+      refresh();
+      getListeLunettes(); 
+    });
 
   const refresh = async()=>{
     listeLunettes.value = await pb.collection('lunette').getFullList()
   }
 
-  onMounted(() => {
-      getListeLunettes(); 
-      refresh();
-    });
 
 
   const getListeLunettes = async()=>{
